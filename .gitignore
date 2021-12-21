@@ -45,4 +45,7 @@ pip-delete-this-directory.txt
 .history
 
 # Postgresql #
-*data/db
+*data/db/*
+!*data/db/pg_hba.conf
+!*data/db/pg_ident.conf
+!*data/db/postgresql.conf
