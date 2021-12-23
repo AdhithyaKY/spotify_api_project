@@ -26,3 +26,7 @@ def home(request):
 
 def about(request):
     return render(request, 'landing/about.html', {'title': 'about'})
+
+
+def stats(request):
+    return render(request, 'landing/stats.html', {'title': 'stats'})
