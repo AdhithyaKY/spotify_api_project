@@ -1,16 +1,18 @@
 
+Create a virtual environment for local dev.
+py -m venv .venv
+
 After cloning the repo, you should be able to run the docker-compose up command in the root folder (spotify_api_project)
 and it should get the project up and running. you might need to run this twice if postgresql doesn't start up fully
     docker-compose up / down
 
-
-
 Setting up the project for the first time. This assumes you dont have the project folder, or the manage.py yet.
 If you run this after deleting data, spotify_api_project, and manage.py, the command will fail.
 
-    docker-compose web django-admin startproject spotify_api_project .
+    docker-compose run web django-admin startproject spotify_api_project .
 
-
+Create new apps:
+docker-compose run web python manage.py startapp landing
 
 ------ for the spotify_api_project/settings.py file ------
 

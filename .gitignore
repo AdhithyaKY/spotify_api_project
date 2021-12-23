@@ -9,6 +9,9 @@ media
 # Backup files # 
 *.bak
 
+# Virtual environments #
+.venv
+
 # Python # 
 *.py[cod] 
 *$py.class 
