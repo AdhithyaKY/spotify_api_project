@@ -43,3 +43,11 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+
+
+######################## creating django superuser/starting migrations ########################
+from the cli of the container, can be found on docker desktop (and not the db, but web) run the following commands:
+
+python manage.py migrate (this will run through migrations that create base database entries)
+python manage.py createsuperuser (you will be asked to input a username, password, and email)
