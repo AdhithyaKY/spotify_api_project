@@ -33,13 +33,14 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'landing.apps.LandingConfig',
+    'authentication.apps.AuthenticationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authentication'
+
 ]
 
 MIDDLEWARE = [
