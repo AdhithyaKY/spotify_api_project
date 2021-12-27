@@ -10,8 +10,9 @@ def register(request):
         if form.is_valid():
             form.save()  # automatically hashes the password for the db
             username = form.cleaned_data.get('username')
+            first_name = form.cleaned_data.get('first_name')
             messages.success(
-                request, f'Your account has been created! You are now able to login.')
+                request, first_name.capitalize() + ', your account has been created! You are now able to login.')
             return redirect('login')
     else:
         form = UserRegisterForm()
