@@ -31,7 +31,12 @@
                         class="d-inline-block align-text-top">
                     Landing Zone
                 </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'landing-home' %}">Home</a>
@@ -46,12 +51,22 @@
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
-                    <!-- WILL NEED TO ADD DJANGO TEMPLATING IF STATEMENT FOR IF LOGGED IN OR NOT -->
                     <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'register' %}">Register</a>
                         </li>
-                        <!-- IF NOT LOGGED IN, GIVE BUTTONS TO REGISTER/LOGIN PAGE-->
+                        {% endif %}
                     </ul>
                 </div>
             </div>
