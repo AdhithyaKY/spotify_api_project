@@ -45,6 +45,9 @@ DATABASES = {
 }
 
 
+######### to force changes made to the base requirements.txt file #########
+docker-compose up -d --force-recreate --no-deps --build
+
 
 ######################## creating django superuser/starting migrations ########################
 docker-compose run --rm app python manage.py migrate (this will run through migrations that create base database entries)
