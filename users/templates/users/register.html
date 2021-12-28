@@ -1,5 +1,7 @@
 {% extends 'landing/includes/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+
 {% block content %}
 <div class="content-section">
     <form class="pb-2" method="POST">
@@ -9,7 +11,7 @@
             {{ form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            <button class="btn btn-outline-info" id= "submit-button" type="submit">Sign Up</button>
         </div>
     </form>
     <div class="border-top pt-3">
@@ -18,4 +20,5 @@
         </small>
     </div>
 </div>
+<script src="{% static "users/password-validation.js" %}"></script>
 {% endblock content %}
