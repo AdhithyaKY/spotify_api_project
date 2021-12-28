@@ -52,3 +52,6 @@ pip-delete-this-directory.txt
 !*data/db/pg_hba.conf
 !*data/db/pg_ident.conf
 !*data/db/postgresql.conf
+
+# Docker env variable file #
+.env
