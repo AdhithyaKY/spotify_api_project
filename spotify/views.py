@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
 from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
+from .utils import is_user_authenticated_with_spotify, update_or_create_user_tokens, is_user_authenticated_with_spotify
 
 class AuthorizationURL(APIView):
     def get(self, request, format=None):
@@ -37,3 +38,14 @@ class RequestAccessToken(APIView):
         expires_in = response.get('expires_in')
         error = response.get('error')
 
+        if not request.session.exists(request.session.session_key):
+            request.session.create()
+
+        update_or_create_user_tokens(request.session.session_key, access_token, token_type, expires_in, refresh_token)
+
+        return redirect('/')
+
+class IsAuthenticated(APIView):
+    def get(self, request, format=None):
+        is_authenticated = is_user_authenticated_with_spotify(self.request.session.session_key)
+        return Response({'status': is_authenticated}, status=status.HTTP_OK)
