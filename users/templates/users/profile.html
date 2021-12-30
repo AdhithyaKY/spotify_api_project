@@ -1,5 +1,39 @@
 {% extends 'landing/includes/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1> {{ user.username }}</h1>
+<h1> {{ user.username }}'s Profile</h1>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your Full Name</h5>
+                <p class="card-text">{{ user.first_name}} {{ user.last_name }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your email</h5>
+                <p class="card-text">{{ user.email }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your username</h5>
+                <p class="card-text">{{ user.username }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">placeholder</h5>
+                <p class="card-text">placeholder text.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
