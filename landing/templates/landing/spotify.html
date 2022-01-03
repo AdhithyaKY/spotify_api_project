@@ -1,0 +1,11 @@
+{% extends 'landing/includes/base.html' %}
+{% block content %}
+<h1>Spotify</h1>
+{% for post in posts %}
+<h1>{{ post.title }}</h1>
+<p>By {{ post.author }} on {{ post.date_posted }}</p>
+<p>{{ post.content }}</p>
+{% endfor %}
+<p>TODO: make this basically with a header for "[user's_name]'s Landing Zone</p>
+<p>it should show the main page for stuff, things like fav artists ( ask and put indb), releases </p>
+{% endblock content %}
