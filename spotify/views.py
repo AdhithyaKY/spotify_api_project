@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from requests import Request, post
@@ -10,6 +11,7 @@ from .models import SpotifyToken
 from .utils import is_user_authenticated_with_spotify, update_or_create_user_tokens, is_user_authenticated_with_spotify
 
 
+@login_required
 def remove_user_token(request):
     user_token = SpotifyToken.objects.filter(user=request.user).delete()
     messages.success(request, ("Successfully removed spotify authentication."))
@@ -23,6 +25,7 @@ class AuthorizationURL(APIView):
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'show_dialog': 'true',
+            'state': 'spo',
             'response_type': 'code',
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID
