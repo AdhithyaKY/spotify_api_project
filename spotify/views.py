@@ -40,11 +40,8 @@ class RequestAccessToken(APIView):
         expires_in = response.get('expires_in')
         error = response.get('error')
 
-        if not request.session.exists(request.session.session_key):
-            request.session.create()
-
         update_or_create_user_tokens(
-            request.session.session_key, access_token, token_type, expires_in, refresh_token)
+            request.user, access_token, token_type, expires_in, refresh_token)
 
         return redirect('/')
 
@@ -52,5 +49,5 @@ class RequestAccessToken(APIView):
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
         is_authenticated = is_user_authenticated_with_spotify(
-            self.request.session.session_key)
+            self.request.user)
         return Response({'status': is_authenticated}, status=status.HTTP_OK)
