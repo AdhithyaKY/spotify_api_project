@@ -1,10 +1,4 @@
-from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from spotipy.oauth2 import SpotifyOAuth
-from requests import Request, post
-from rest_framework import status
-from rest_framework.response import Response
-from spotify.credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from django.shortcuts import render
 
 posts = [
     {
