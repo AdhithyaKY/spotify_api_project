@@ -15,7 +15,6 @@ def get_user_tokens(user):
 
 def update_or_create_user_tokens(user, access_token, token_type, expires_in, refresh_token):
     tokens = get_user_tokens(user)
-    print(expires_in)
     expires_in = timezone.now() + timedelta(seconds=expires_in)
 
     if tokens:

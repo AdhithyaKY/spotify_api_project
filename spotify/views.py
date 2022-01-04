@@ -1,10 +1,17 @@
 from django.shortcuts import render, redirect
-from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
 from rest_framework.views import APIView
 from requests import Request, post
 from rest_framework import status
 from rest_framework.response import Response
+
+from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
+from .models import SpotifyToken
 from .utils import is_user_authenticated_with_spotify, update_or_create_user_tokens, is_user_authenticated_with_spotify
+
+
+def remove_user_token(request):
+    user_token = SpotifyToken.objects.filter(user=request.user).delete()
+    return redirect('profile')
 
 
 class AuthorizationURL(APIView):
@@ -13,6 +20,7 @@ class AuthorizationURL(APIView):
 
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
+            'show_dialog': 'true',
             'response_type': 'code',
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID
@@ -25,6 +33,9 @@ class RequestAccessToken(APIView):
     def get(self, request, format=None):
         code = request.GET.get('code')
         error = request.GET.get('error')
+        if error:
+            # add message
+            return redirect('/profile/')
 
         response = post('https://accounts.spotify.com/api/token', data={
             'client_id': CLIENT_ID,

@@ -25,7 +25,6 @@ def register(request):
 def profile(request):
 
     result = get_user_tokens(request.user)
-    print(result)
     if result is None:
         results = {'is_auth': False}
     else:
