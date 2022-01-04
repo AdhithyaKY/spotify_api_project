@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from spotify.utils import get_user_tokens
 from .forms import UserRegisterForm
 
 
@@ -21,4 +23,12 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+
+    result = get_user_tokens(request.user)
+    print(result)
+    if result is None:
+        results = {'is_auth': False}
+    else:
+        results = {'is_auth': True}
+
+    return render(request, 'users/profile.html', results)
