@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from requests import Request, post
@@ -11,6 +12,7 @@ from .utils import is_user_authenticated_with_spotify, update_or_create_user_tok
 
 def remove_user_token(request):
     user_token = SpotifyToken.objects.filter(user=request.user).delete()
+    messages.success(request, ("Successfully removed spotify authentication."))
     return redirect('profile')
 
 
@@ -34,7 +36,8 @@ class RequestAccessToken(APIView):
         code = request.GET.get('code')
         error = request.GET.get('error')
         if error:
-            # add message
+            messages.warning(
+                request, ("Spotify authentication failed. Did you mean to click 'Agree' on the Spotify page? Try logging in to Spotify again."))
             return redirect('/profile/')
 
         response = post('https://accounts.spotify.com/api/token', data={

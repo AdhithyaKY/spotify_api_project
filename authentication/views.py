@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+
 def user_login(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -11,8 +12,8 @@ def user_login(request):
             login(request, user)
             return redirect('/')
         else:
-            messages.success(request, ("Username or password was incorrect, try again."))
+            messages.warning(
+                request, ("Username or password was incorrect, try again."))
             return redirect('login')
-    else:   
+    else:
         return render(request, 'authenticationPages/login.html', {})
-
