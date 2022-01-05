@@ -62,6 +62,7 @@ command to migrate changes.
 ## View contents of database within container ##
 from docker desktop, go into cli of db within project
 "su postgres" to change bash user to postgres
+"psql" to use postgres
 "\c postgres" to select the database name
 "\dt" to display the available tables in the chosen database
 "select * from <whatever_table_you_want>;" to view contents of the selected table.
