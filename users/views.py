@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from spotify.utils import get_user_tokens
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm
 
 
 def register(request):
@@ -25,9 +25,27 @@ def register(request):
 def profile(request):
 
     result = get_user_tokens(request.user)
-    if result is None:
-        results = {'is_auth': False}
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(
+                request, f'Your account has been updated!')
+            return redirect('profile')
+
     else:
-        results = {'is_auth': True}
+        u_form = UserUpdateForm(instance=request.user)
+
+    if result is None:
+        results = {
+            'u_form': u_form,
+            'is_auth': False
+        }
+    else:
+        results = {
+            'u_form': u_form,
+            'is_auth': True
+        }
 
     return render(request, 'users/profile.html', results)

@@ -2,6 +2,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h1> {{ user.username }}'s Profile</h1>
+<div class="row pt-3 pb-3 center">
+    <button type="button" class="btn btn-primary col-sm-auto" data-bs-toggle="modal"
+        data-bs-target="#updateProfileModal">
+        Update Profile
+    </button>
+</div>
 <div class="row">
     <div class="col-sm-6">
         <div class="card">
@@ -42,5 +48,30 @@
     {% else %}
     <a type="button" class="btn btn-success col-sm-auto" href="{% url 'spotify-auth' %}">Log in to Spotify</a>
     {% endif %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateProfileModalLabel">Change your account details.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="pb-2" method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ u_form|crispy }}
+                    </fieldset>
+                    <div class="form-group modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="submit-button" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
