@@ -66,3 +66,9 @@ from docker desktop, go into cli of db within project
 "\c postgres" to select the database name
 "\dt" to display the available tables in the chosen database
 "select * from <whatever_table_you_want>;" to view contents of the selected table.
+
+
+################ Create app password with google for gmail ################
+go to your google account -> security -> app passwords (if you have two factor authentication)
+copy the password
+add to environment variables.
