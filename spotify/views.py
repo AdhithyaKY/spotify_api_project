@@ -42,6 +42,8 @@ class RequestAccessToken(APIView):
             messages.warning(
                 request, ("Spotify authentication failed. Did you mean to click 'Agree' on the Spotify page? Try logging in to Spotify again."))
             return redirect('/profile/')
+        else:
+            messages.success(request, ("Spotify authentication success."))
 
         response = post('https://accounts.spotify.com/api/token', data={
             'client_id': CLIENT_ID,
