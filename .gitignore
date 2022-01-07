@@ -56,3 +56,6 @@ pip-delete-this-directory.txt
 
 # Docker env variable file #
 .env
+
+# secrets
+*.pem
