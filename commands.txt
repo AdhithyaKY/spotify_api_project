@@ -72,3 +72,20 @@ from docker desktop, go into cli of db within project
 go to your google account -> security -> app passwords (if you have two factor authentication)
 copy the password
 add to environment variables.
+
+
+
+
+for pem file to log into the ec2 instance on windows:
+
+icacls.exe your_key_name.pem /reset
+
+icacls.exe your_key_name.pem /grant:r "$($env:username):(r)"
+
+icacls.exe your_key_name.pem /inheritance:r
+
+thats it! your keys.pem have same restrisctions as you use chmod 400
+
+
+docker instructions:
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html

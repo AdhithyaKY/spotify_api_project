@@ -1,16 +1,6 @@
 version: "3.9"
 
 services:
-  #db:
-  #  image: postgres
-  #  environment:
-  #    - POSTGRES_NAME=postgres
-  #    - POSTGRES_USER=postgres
-  #    - POSTGRES_PASSWORD=postgres
-  #    - CLIENT_ID=${CLIENT_ID}
-  #    - CLIENT_SECRET=${CLIENT_SECRET}
-  #  volumes:
-  #    - ./data/db:/var/lib/postgresql/data
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -26,5 +16,3 @@ services:
       - CLIENT_SECRET=${CLIENT_SECRET}
       - EMAIL_USER=${EMAIL_USER}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-  #  depends_on:
-  #    - db
