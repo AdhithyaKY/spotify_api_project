@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_NAME'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
+        'HOST': 'database-1.cccjj7s242zl.us-east-1.rds.amazonaws.com',
         'PORT': 5432,
     }
 }
