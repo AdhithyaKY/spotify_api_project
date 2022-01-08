@@ -67,6 +67,8 @@ class RequestAccessToken(APIView):
 
 class IsAuthenticated(APIView):
     def get(self, request, format=None):
+        print(self.request.user)
         is_authenticated = is_user_authenticated_with_spotify(
             self.request.user)
-        return Response({'status': is_authenticated}, status=status.HTTP_OK)
+        print(is_authenticated)
+        return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
