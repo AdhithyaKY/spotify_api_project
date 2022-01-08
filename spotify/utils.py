@@ -8,13 +8,14 @@ from requests import post
 def get_user_tokens(user):
     user_tokens = SpotifyToken.objects.filter(user=user)
     if user_tokens.exists():
-        return user
+        return user_tokens[0]
     else:
         return None
 
 
 def update_or_create_user_tokens(user, access_token, token_type, expires_in, refresh_token):
     tokens = get_user_tokens(user)
+    print(tokens)
     expires_in = timezone.now() + timedelta(seconds=expires_in)
 
     if tokens:
