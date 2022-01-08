@@ -86,6 +86,12 @@ icacls.exe your_key_name.pem /inheritance:r
 
 thats it! your keys.pem have same restrisctions as you use chmod 400
 
+############ log in to aws instance #############
+ssh -i "spotify-django.pem" ubuntu@ec2-44-201-209-205.compute-1.amazonaws.com
+
 
 docker instructions:
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+django deployment checklist
+https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
