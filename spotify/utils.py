@@ -1,4 +1,4 @@
-from .models import SpotifyToken
+from .models import SpotifyToken, TopArtists
 from django.utils import timezone
 from datetime import timedelta
 from .credentials import CLIENT_ID, CLIENT_SECRET
@@ -13,6 +13,12 @@ def get_user_tokens(user):
     else:
         return None
 
+def get_user_top_artists_from_db(user):
+    top_artists = TopArtists.objects.filter(user=user)
+    if (top_artists.exists()):
+        return top_artists[0]
+    else:
+        return None
 
 def update_or_create_user_tokens(user, access_token, token_type, expires_in, refresh_token):
     tokens = get_user_tokens(user)
@@ -31,6 +37,16 @@ def update_or_create_user_tokens(user, access_token, token_type, expires_in, ref
                               refresh_token=refresh_token, token_type=token_type, expires_in=expires_in)
         tokens.save()
 
+def update_or_create_user_top_artists(user, artist_names, artist_image_urls):
+    top_artists = get_user_top_artists_from_db(user)
+    
+    if top_artists:
+        top_artists.artist_names = artist_names
+        top_artists.artist_image_urls = artist_image_urls
+        top_artists.save(update_fields=['artist_names', 'artist_image_urls'])
+    else:
+        top_artists = TopArtists(user=user, artist_names=artist_names, artist_image_urls=artist_image_urls)
+        top_artists.save()
 
 def is_user_authenticated_with_spotify(user):
     tokens = get_user_tokens(user)
@@ -71,9 +87,8 @@ def execute_spotify_api_request(user, api_endpoint, post_request=False, put_requ
     if put_request:
         put(BASE_API_URL + api_endpoint, headers=headers)
 
-    print(BASE_API_URL + api_endpoint)
     response = get(BASE_API_URL + api_endpoint, {}, headers=headers)
-    #print(response.json())
+
     try:
         return response.json()
     except:
@@ -81,7 +96,13 @@ def execute_spotify_api_request(user, api_endpoint, post_request=False, put_requ
 
 
 def get_user_top_artists(user):
-    return execute_spotify_api_request(user, "/top/artists")
+    if (is_user_authenticated_with_spotify(user)):
+        return execute_spotify_api_request(user, "/top/artists")
+    else:
+        return {'Error': 'User does not have spotify tokens, cannot retrieve top artists.'}
 
 def get_user_top_tracks(user):
-    return execute_spotify_api_request(user, "/top/tracks")
+    if (is_user_authenticated_with_spotify(user)):
+        return execute_spotify_api_request(user, "/top/tracks")
+    else:
+        return {'Error': 'User does not have spotify tokens, cannot retrieve top tracks.'}
