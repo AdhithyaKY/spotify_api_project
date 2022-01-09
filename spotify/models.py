@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 class SpotifyToken(models.Model):
     user = models.CharField(max_length=50, unique=True)
@@ -7,3 +8,8 @@ class SpotifyToken(models.Model):
     access_token = models.CharField(max_length=500)
     expires_in = models.DateTimeField()
     token_type = models.CharField(max_length=50)
+
+class TopArtists(models.Model):
+    user = models.CharField(max_length=50, unique=True)
+    artist_names = ArrayField(models.CharField(max_length=50, blank=True),size=20)
+    artist_image_urls = ArrayField(models.CharField(max_length=500, blank=True),size=20)
