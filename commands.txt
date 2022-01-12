@@ -95,3 +95,7 @@ https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 
 django deployment checklist
 https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+
+
+## make changes take effect with apache ##
+sudo service apache2 restart
