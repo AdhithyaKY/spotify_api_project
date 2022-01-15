@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
-from .models import SpotifyToken
+from .models import SpotifyToken, TopArtists
 from .utils import is_user_authenticated_with_spotify, update_or_create_user_tokens, is_user_authenticated_with_spotify, get_user_top_artists, get_user_top_tracks, update_or_create_user_top_artists
 
 
@@ -16,6 +16,17 @@ def remove_user_token(request):
     user_token = SpotifyToken.objects.filter(user=request.user).delete()
     messages.success(request, ("Successfully removed spotify authentication."))
     return redirect('profile')
+
+def select_artists(request):
+    top_artists_info = TopArtists.objects.filter(user=request.user)
+    image_urls = top_artists_info[0].artist_image_urls
+    artist_names = top_artists_info[0].artist_names
+    combined_list = []
+    if(len(image_urls) == len(artist_names)):
+        for i in range(len(image_urls)):
+            combined_list.append((image_urls[i],artist_names[i]))
+    
+    return render(request, 'spotify/selectartists.html', {'combined_info':combined_list})
 
 class GetUserTopArtists(APIView):
     def get(self, request, format=None):
@@ -85,3 +96,5 @@ class IsAuthenticated(APIView):
             self.request.user)
         print(is_authenticated)
         return Response({'authenticated': is_authenticated}, status=status.HTTP_200_OK)
+
+
