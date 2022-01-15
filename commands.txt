@@ -99,3 +99,6 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 ## make changes take effect with apache ##
 sudo service apache2 restart
+
+## update requirements.txt after installing libararies
+pip freeze > requirements.txt
