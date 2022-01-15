@@ -1,0 +1,15 @@
+{% extends 'landing/includes/base.html' %}
+
+{% block content %}
+    {% for info in combined_info %}
+        {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %} 
+        <div class="card" style="width: 18rem;">
+            <img src={{ info.0 }} class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ info.1 }}</h5>
+            <p class="card-text">{{forloop.counter}}</p>
+            <a href="#" class="stretched-link"></a>
+            </div>
+        </div>
+    {%endfor%}
+{% endblock content %}
