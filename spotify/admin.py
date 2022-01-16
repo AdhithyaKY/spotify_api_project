@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from spotify.models import SpotifyToken, TopArtists
+
+admin.site.register(TopArtists)
+admin.site.register(SpotifyToken)
